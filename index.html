@@ -12,7 +12,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;700&display=swap"
         rel="stylesheet">
-  <script type="module" crossorigin src="/temanbudidaya/assets/index-DbZ3S9uo.js"></script>
+  <script type="module" crossorigin src="/temanbudidaya/assets/index-Bssqy7N9.js"></script>
   <link rel="stylesheet" crossorigin href="/temanbudidaya/assets/index-CpohSLeZ.css">
 </head>
 
@@ -36,6 +36,7 @@
             <div class="tabs">
                 <button class="tab-btn active" data-tab="feed-calc">Kalkulator Pakan</button>
                 <button class="tab-btn" data-tab="fcr-calc">Kalkulator FCR</button>
+                <button class="tab-btn" data-tab="sr-calc">Kalkulator SR</button>
             </div>
 
             <section class="calculator-section">
@@ -130,6 +131,48 @@
                             </div>
                             <p class="result-note">Semakin rendah nilai FCR, semakin efisien penggunaan pakan dalam
                                 budidaya Anda.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SR Calculator Tab -->
+                <div id="sr-calc" class="tab-content">
+                    <div class="calculator-card">
+                        <div class="card-header">
+                            <h2>Hitung Survival Rate (SR)</h2>
+                        </div>
+                        <form id="sr-form">
+                            <div class="form-group">
+                                <label for="total-tebar">Jumlah Tebar Awal</label>
+                                <input type="number" id="total-tebar" placeholder="Contoh: 1000" min="0" step="0.1"
+                                    required>
+                                <small>Total tebar awal ikan.</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="total-panen">Jumlah Ikan (saat panen)</label>
+                                <input type="number" id="total-panen" placeholder="Contoh: 950" required>
+                                <small>Total berat ikan yang dihasilkan (saat panen atau sampling).</small>
+                            </div>
+
+                            <button type="submit" class="btn-primary">Hitung SR</button>
+                        </form>
+
+                        <div id="sr-result-container" class="result-container hidden">
+                            <div class="result-divider"></div>
+                            <h3>Hasil Analisis Survival Rate</h3>
+                            <div class="sr-formula-box">
+                                <span class="formula-text">SR = Total Panen / Total Tebar * 100%</span>
+                                <div id="sr-calculation-display" class="calculation-detail">
+                                    SR = (950/1000) * 100
+                                </div>
+                            </div>
+                            <div class="result-item single-result">
+                                <span class="result-label">Nilai SR</span>
+                                <span id="result-sr" class="result-value">0</span>
+                                <span id="sr-status" class="sr-status-badge">Normal</span>
+                            </div>
+                            <p class="result-note">Semakin tinggi nilai SR, semakin efisien budidaya Anda.</p>
                         </div>
                     </div>
                 </div>
