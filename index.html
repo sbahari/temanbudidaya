@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kalkulator Pakan Ikan Nila - Teman Budidaya</title>
+    <title>Kalkulator Pakan Dan FCR Ikan Nila - Teman Budidaya</title>
     <meta name="description"
         content="Kalkulator pakan ikan nila otomatis berdasarkan biomasa ikan. Bantu pembudidaya ikan mengoptimalkan pakan.">
     <link rel="stylesheet" href="style.css">
@@ -32,50 +32,104 @@
                 <p>Hitung kebutuhan pakan harian ikan nila Anda berdasarkan total biomasa dengan cepat dan akurat.</p>
             </header>
 
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="feed-calc">Kalkulator Pakan</button>
+                <button class="tab-btn" data-tab="fcr-calc">Kalkulator FCR</button>
+            </div>
+
             <section class="calculator-section">
-                <div class="calculator-card">
-                    <div class="card-header">
-                        <h2>Input Data Budidaya</h2>
+                <!-- Feed Calculator Tab -->
+                <div id="feed-calc" class="tab-content active">
+                    <div class="calculator-card">
+                        <div class="card-header">
+                            <h2>Hitung Kebutuhan Pakan</h2>
+                        </div>
+                        <form id="calc-form">
+                            <div class="form-group">
+                                <label for="biomass">Total Biomasa Ikan (kg)</label>
+                                <input type="number" id="biomass" placeholder="Contoh: 100" min="01" step="0.1"
+                                    required>
+                                <small>Total berat seluruh ikan di dalam kolam.</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="percentage">Persentase Pemberian Pakan (%)</label>
+                                <select id="percentage" required>
+                                    <option value="" disabled selected>Pilih persentase</option>
+                                    <option value="0.02">2% dari biomasa</option>
+                                    <option value="0.03">3% dari biomasa</option>
+                                    <option value="0.04">4% dari biomasa</option>
+                                    <option value="0.05">5% dari biomasa</option>
+                                </select>
+                                <small>Umumnya 3-5% untuk masa pertumbuhan.</small>
+                            </div>
+
+                            <button type="submit" class="btn-primary">Hitung Kebutuhan Pakan</button>
+                        </form>
+
+                        <div id="result-container" class="result-container hidden">
+                            <div class="result-divider"></div>
+                            <h3>Hasil Perhitungan</h3>
+                            <div class="result-grid">
+                                <div class="result-item">
+                                    <span class="result-label">Kebutuhan Harian (Gram)</span>
+                                    <span id="result-gram" class="result-value">0</span>
+                                    <span class="result-unit">Gram</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="result-label">Kebutuhan Harian (Kg)</span>
+                                    <span id="result-kg" class="result-value">0</span>
+                                    <span class="result-unit">Kg</span>
+                                </div>
+                            </div>
+                            <p class="result-note">Hasil ini adalah total pakan per hari. Disarankan dibagi menjadi 2-3
+                                kali
+                                waktu pemberian pakan.</p>
+                        </div>
                     </div>
-                    <form id="calc-form">
-                        <div class="form-group">
-                            <label for="biomass">Total Biomasa Ikan (kg)</label>
-                            <input type="number" id="biomass" placeholder="Contoh: 100" min="01" step="0.1" required>
-                            <small>Total berat seluruh ikan di dalam kolam.</small>
+                </div>
+
+                <!-- FCR Calculator Tab -->
+                <div id="fcr-calc" class="tab-content">
+                    <div class="calculator-card">
+                        <div class="card-header">
+                            <h2>Hitung Food Conversion Ratio (FCR)</h2>
                         </div>
-
-                        <div class="form-group">
-                            <label for="percentage">Persentase Pemberian Pakan (%)</label>
-                            <select id="percentage" required>
-                                <option value="" disabled selected>Pilih persentase</option>
-                                <option value="0.02">2% dari biomasa</option>
-                                <option value="0.03">3% dari biomasa</option>
-                                <option value="0.04">4% dari biomasa</option>
-                                <option value="0.05">5% dari biomasa</option>
-                            </select>
-                            <small>Umumnya 3-5% untuk masa pertumbuhan.</small>
-                        </div>
-
-                        <button type="submit" class="btn-primary">Hitung Kebutuhan Pakan</button>
-                    </form>
-
-                    <div id="result-container" class="result-container hidden">
-                        <div class="result-divider"></div>
-                        <h3>Hasil Perhitungan</h3>
-                        <div class="result-grid">
-                            <div class="result-item">
-                                <span class="result-label">Kebutuhan Harian (Gram)</span>
-                                <span id="result-gram" class="result-value">0</span>
-                                <span class="result-unit">Gram</span>
+                        <form id="fcr-form">
+                            <div class="form-group">
+                                <label for="total-feed">Jumlah Pakan (kg)</label>
+                                <input type="number" id="total-feed" placeholder="Contoh: 1000" min="0" step="0.1"
+                                    required>
+                                <small>Total pakan yang telah diberikan selama masa budidaya.</small>
                             </div>
-                            <div class="result-item">
-                                <span class="result-label">Kebutuhan Harian (Kg)</span>
-                                <span id="result-kg" class="result-value">0</span>
-                                <span class="result-unit">Kg</span>
+
+                            <div class="form-group">
+                                <label for="total-fish">Jumlah Ikan (kg)</label>
+                                <input type="number" id="total-fish" placeholder="Contoh: 500" min="0.1" step="0.1"
+                                    required>
+                                <small>Total berat ikan yang dihasilkan (saat panen atau sampling).</small>
                             </div>
+
+                            <button type="submit" class="btn-primary">Hitung FCR</button>
+                        </form>
+
+                        <div id="fcr-result-container" class="result-container hidden">
+                            <div class="result-divider"></div>
+                            <h3>Hasil Analisis FCR</h3>
+                            <div class="fcr-formula-box">
+                                <span class="formula-text">FCR = Total Pakan / Total Berat Ikan</span>
+                                <div id="fcr-calculation-display" class="calculation-detail">
+                                    FCR = 1000 kg / 500 kg
+                                </div>
+                            </div>
+                            <div class="result-item single-result">
+                                <span class="result-label">Nilai FCR</span>
+                                <span id="result-fcr" class="result-value">0.0</span>
+                                <span id="fcr-status" class="fcr-status-badge">Normal</span>
+                            </div>
+                            <p class="result-note">Semakin rendah nilai FCR, semakin efisien penggunaan pakan dalam
+                                budidaya Anda.</p>
                         </div>
-                        <p class="result-note">Hasil ini adalah total pakan per hari. Disarankan dibagi menjadi 2-3 kali
-                            waktu pemberian pakan.</p>
                     </div>
                 </div>
             </section>
