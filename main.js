@@ -88,4 +88,43 @@ document.addEventListener('DOMContentLoaded', () => {
         fcrResultContainer.classList.remove('hidden');
         fcrResultContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     });
+
+    // SR Calculator Logic
+    const srForm = document.getElementById('sr-form')
+    const totalPanenInput = document.getElementById('total-panen')
+    const totalTebarInput = document.getElementById('total-tebar')
+    const srResultContainer = document.getElementById('sr-result-container')
+    const resultSr = document.getElementById('result-sr')
+    const srCalcDisplay = document.getElementById('sr-calculation-display')
+    const srStatus = document.getElementById('sr-status')
+
+    srForm.addEventListener('submit', (e) => {
+        e.preventDefault()
+
+        const totalPanen = parseFloat(totalPanenInput.value)
+        const totalTebar = parseFloat(totalTebarInput.value)
+
+        if (isNaN(totalPanen) || isNaN(totalTebar) || totalTebar === 0) return
+
+        const sr = (totalPanen / totalTebar) * 100
+
+        // Update display
+        resultSr.textContent = `${sr}%`
+        srCalcDisplay.textContent = `SR = ${totalPanen} ekor / ${totalTebar} ekor * 100% = ${sr}%`
+
+        // Status Logic
+        if (sr >= 90) {
+            srStatus.textContent = 'Sangat Baik'
+            srStatus.className = 'sr-status-badge'
+        } else if (sr >= 80) {
+            srStatus.textContent = 'Normal'
+            srStatus.className = 'sr-status-badge'
+        } else {
+            srStatus.textContent = 'Kurang Efisien'
+            srStatus.className = 'sr-status-badge warning'
+        }
+
+        srResultContainer.classList.remove('hidden')
+        srResultContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+    })
 });
